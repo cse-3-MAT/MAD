@@ -2,7 +2,7 @@ Rating Bar
 #######################################################
 MainActivity.java
 #######################################################
-package com.avinash.ratingbar;
+package com.eswar.ratingbar;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
