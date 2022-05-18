@@ -1,0 +1,150 @@
+week 7
+
+############################################
+Colour Slider/ Colour Picker/ ColouringApp
+############################################
+
+MainAcitivity.java
+
+
+package com.eswar.colouringapp;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.graphics.Color;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+import java.util.Locale;
+
+public class MainActivity extends AppCompatActivity implements SeekBar.OnSeekBarChangeListener {
+    View vColor;
+    TextView tvCode,tvValue;
+    SeekBar sbRed,sbGreen,sbBlue;
+    int red=0,green=0,blue=0;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        vColor=findViewById(R.id.v_color);
+        tvCode=findViewById(R.id.tv_code);
+        tvValue=findViewById(R.id.tv_value);
+        sbRed=findViewById(R.id.sb_red);
+        sbGreen=findViewById(R.id.sb_green);
+        sbBlue=findViewById(R.id.sb_blue);
+        sbRed.setOnSeekBarChangeListener(this);
+        sbGreen.setOnSeekBarChangeListener(this);
+        sbBlue.setOnSeekBarChangeListener(this);
+    }
+    @Override
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
+        switch(seekBar.getId()){
+            case R.id.sb_red:
+                red=progress;
+                break;
+            case R.id.sb_green:
+                green=progress;
+                break;
+            case R.id.sb_blue:
+                blue=progress;
+                break;
+
+        }
+        vColor.setBackgroundColor(Color.rgb(red,green,blue));
+        String code=HexCode(red,green,blue);
+        tvCode.setText(code.toUpperCase());
+        tvValue.setText(String.format("RGB (%d, %d, %d)",red,green,blue));
+    }
+
+    private String HexCode(int red, int green, int blue) {
+        String code;
+        code="#";
+        code+=Integer.toHexString(red);
+        code+=Integer.toHexString(green);
+        code+=Integer.toHexString(blue);
+        return code;
+    }
+
+
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+
+    }
+
+    @Override
+    public void onStopTrackingTouch(SeekBar seekBar) {
+
+    }
+}
+
+
+
+activity_main.xml
+
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    android:padding="16dp"
+    tools:context=".MainActivity">
+
+    <View
+        android:layout_height="180dp"
+        android:layout_width="match_parent"
+        android:id="@+id/v_color"
+        android:background="#000"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_code"
+        android:text="#000"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_value"
+        android:text="RGB (0,0,0)"
+        android:textSize="24sp"
+        android:textStyle="bold"
+        android:layout_marginTop="8dp"
+        />
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sb_red"
+        android:layout_marginTop="16dp"
+        android:max="255"
+        android:progressTint="#FF0000"
+        android:thumbTint="#FF0000"
+        />
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sb_green"
+        android:layout_marginTop="16dp"
+        android:max="255"
+        android:progressTint="#00FF00"
+        android:thumbTint="#00FF00"
+        />
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sb_blue"
+        android:layout_marginTop="16dp"
+        android:max="255"
+        android:progressTint="#0000FF"
+        android:thumbTint="#0000FF"
+        />
+</LinearLayout>
