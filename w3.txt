@@ -1,6 +1,6 @@
 week 3
 Share Intent
-package com.avinash.myshareapp;
+package com.eswar.myshareapp;
 
 import androidx.appcompat.app.AppCompatActivity;
 
