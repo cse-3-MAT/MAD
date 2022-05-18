@@ -1,5 +1,5 @@
 MainActivity.java
-package com.avinash.texttospeech;
+package com.eswar.texttospeech;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 import android.speech.tts.TextToSpeech;
