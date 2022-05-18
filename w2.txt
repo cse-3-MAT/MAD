@@ -1,0 +1,168 @@
+week 2
+Hello World
+#################################
+MainAcitivity.java
+
+package com.example.helloworld;
+
+import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+    }
+}
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    tools:ignore="MissingClass">
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="192dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.47"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/android_studio_logo" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="91dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginBottom="200dp" 
+        android:text="Welcome to andriod! Hello world"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+</android.support.constraint.ConstraintLayout>
+
+##############################################################
+AGE CALCULATOR
+##############################################################
+MainAcitivity.java
+
+
+package com.avinash.testworld;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import java.util.Calendar;
+public class MainActivity extends AppCompatActivity {
+    EditText inputValue;
+    Button calculate;
+    TextView result;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        inputValue=findViewById(R.id.editTextInput);
+        calculate=findViewById(R.id.calculate);
+        result=findViewById(R.id.result);
+        calculate.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                int years = Calendar.getInstance().get(Calendar.YEAR);
+                String dobyear = inputValue.getText().toString().trim();
+                int dyear = Integer.parseInt(dobyear);
+                int age = years - dyear;
+                if (dobyear.isEmpty()) {
+                    result.setText("Please Enter Input");
+                } else if (age < 0) {
+                    result.setText("Enter a valid Input");
+                } else {
+                    result.setText(String.valueOf(age));
+                }
+
+            }
+        });
+    }
+}
+
+
+activity_main.xml
+
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/cardview_light_background"
+    android:orientation="vertical"
+    android:layout_gravity="center"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="200sp"
+        android:text="calculate my age"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="20sp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:layout_marginTop="100dp"
+        android:hint="Enter your year from DOB"
+        android:textColor="@color/black"
+        android:id="@+id/editTextInput"
+        android:minWidth="200dp"
+        android:height="40dp"
+        android:width="250dp">
+
+    </EditText>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:id="@+id/calculate"
+        android:text="Calculate Age"
+        android:background="@color/design_default_color_primary"
+        android:layout_marginTop="40dp"
+        android:minWidth="200dp">
+    </Button>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginTop="50sp"
+        android:text="Your age is __"
+        android:id="@+id/result"
+        android:textColor="@color/cardview_dark_background"
+        android:textSize="20sp" />
+
+</LinearLayout>

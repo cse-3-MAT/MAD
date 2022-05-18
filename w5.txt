@@ -1,0 +1,287 @@
+MainAcitivity.java
+################################################
+package com.avinash.pollstatus1;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.widget.SeekBar;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+    SeekBar seekbar1, seekbar2, seekbar3;
+    TextView tvOption1, tvOption2, tvOption3;
+    TextView tvPercent1, tvPercent2, tvPercent3;
+    int counter1 = 1, counter2 = 1, counter3 = 1;
+    boolean flag1 = true, flag2 = true, flag3 = true;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        seekbar1 = findViewById(R.id.seek_bar1);
+        seekbar2 = findViewById(R.id.seek_bar2);
+        seekbar3 = findViewById(R.id.seek_bar3);
+        tvOption1 = findViewById(R.id.tv_option1);
+        tvOption2 = findViewById(R.id.tv_option2);
+        tvOption3 = findViewById(R.id.tv_option3);
+        tvPercent1 = findViewById(R.id.tv_percent1);
+        tvPercent2 = findViewById(R.id.tv_percent2);
+        tvPercent3 = findViewById(R.id.tv_percent3);
+
+        seekbar1.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+        seekbar2.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+        seekbar3.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                return true;
+            }
+        });
+
+        tvOption1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (flag1) {
+                    counter1=counter1+1;
+                    counter2 = 1;
+                    counter3 = 1;
+                    flag1 = false;
+                    flag2 = true;
+                    flag3 = true;
+                    calcpercent();
+
+                }
+            }
+        });
+        tvOption2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (flag2) {
+                    counter1=1;
+                    counter2++;
+                    counter3 = 1;
+                    flag1 = true;
+                    flag2 = false;
+                    flag3 = true;
+                    calcpercent();
+
+                }
+            }
+        });
+        tvOption3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (flag3) {
+                    counter1=1;
+                    counter2 = 1;
+                    counter3++;
+                    flag1 = true;
+                    flag2 = true;
+                    flag3 = false;
+                    calcpercent();
+
+                }
+            }
+        });
+
+
+    }
+
+    private void calcpercent() {
+        double total = counter1 + counter2 + counter3;
+        System.out.println(total);
+        double percent1 = (counter1 / total) * 100;
+        double percent2 = (counter2 / total) * 100;
+        double percent3 = (counter3 / total) * 100;
+
+        tvPercent1.setText(String.format("%.0f%%", percent1));
+        seekbar1.setProgress((int) percent1);
+        tvPercent2.setText(String.format("%.0f%%", percent2));
+        seekbar2.setProgress((int) percent2);
+        tvPercent3.setText(String.format("%.0f%%", percent3));
+        seekbar3.setProgress((int) percent3);
+    }
+}
+#######################################################
+activity_main.xml
+#######################################################
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/tv_question"
+        android:text="Which programming language is your favourite language?"
+        android:textSize="20sp"
+        android:textStyle="bold"
+        android:textAlignment="center"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="parent"
+        tools:ignore="HardcodedText" />
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seek_bar1"
+        android:max="100"
+        android:progress="25"
+        android:layout_marginTop="16dp"
+        android:thumb="@android:color/transparent"
+        android:progressDrawable="@drawable/progress_track"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        />
+
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:id="@+id/tv_option1"
+        android:text="Java"
+        android:paddingStart="32dp"
+        android:paddingEnd="0dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_percent1"
+        tools:ignore="HardcodedText" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/tv_percent1"
+        android:text="25%"
+        android:paddingStart="0dp"
+        android:paddingEnd="52dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/tv_question"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardcodedText" />
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seek_bar2"
+        android:max="100"
+        android:progress="25"
+        android:layout_marginTop="16dp"
+        android:thumb="@android:color/transparent"
+        android:progressDrawable="@drawable/progress_track"
+        app:layout_constraintTop_toBottomOf="@+id/seek_bar1"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:id="@+id/tv_option2"
+        android:text="C"
+        android:paddingStart="32dp"
+        android:paddingEnd="0dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/seek_bar1"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/tv_percent2"
+        tools:ignore="HardcodedText" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/tv_percent2"
+        android:text="25%"
+        android:paddingStart="0dp"
+        android:paddingEnd="52dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/seek_bar1"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardcodedText" />
+    <SeekBar
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/seek_bar3"
+        android:max="100"
+        android:progress="25"
+        android:layout_marginTop="16dp"
+        android:thumb="@android:color/transparent"
+        android:progressDrawable="@drawable/progress_track"
+        app:layout_constraintTop_toBottomOf="@+id/seek_bar2"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:ignore="MissingConstraints"
+        />
+    <TextView
+        android:layout_width="0dp"
+        android:layout_height="40dp"
+        android:id="@+id/tv_option3"
+        android:text="Python"
+        android:paddingStart="32dp"
+        android:paddingEnd="0dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/seek_bar2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@id/tv_percent3"
+        tools:ignore="HardcodedText" />
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:id="@+id/tv_percent3"
+        android:text="25%"
+        android:paddingStart="0dp"
+        android:paddingEnd="52dp"
+        android:layout_marginTop="16dp"
+        android:gravity="center_vertical"
+        app:layout_constraintTop_toBottomOf="@+id/seek_bar2"
+        app:layout_constraintEnd_toEndOf="parent"
+        tools:ignore="HardcodedText" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+#################################
+progress_track.xml
+#################################
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item>
+        <shape android:shape="rectangle">
+            <solid android:color="@android:color/transparent"/>
+            <size android:height="40dp"/>
+            <corners android:radius="4dp"/>
+            <stroke android:color="#F3D304" android:width="1dp"/>
+
+        </shape>
+    </item>
+    <item>
+        <scale android:scaleWidth="100%">
+            <selector>
+                <item android:state_enabled="false" android:drawable="@android:color/transparent"/>
+                <item>
+                    <shape android:shape="rectangle">
+                        <solid android:color="#67F311"/>
+                        <size android:height="40dp"/>
+                        <corners android:bottomLeftRadius="4dp"
+                            android:topLeftRadius="4dp"/>
+                        <stroke android:color="#E0E0E0" android:width="1dp"/>
+                    </shape>
+                </item>
+            </selector>
+        </scale>
+    </item>
+</layer-list>
