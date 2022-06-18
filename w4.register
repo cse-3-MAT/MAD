@@ -1,0 +1,368 @@
+Registration
+#############################################
+Main activity
+#############################################
+package com.eswar.register;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.text.Editable;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity {
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+        String eo="admin@gmail.com";
+        String po="admin";
+        EditText email=(EditText)findViewById(R.id.email);
+        EditText pass=(EditText) findViewById(R.id.pass);
+        Button b=(Button)findViewById(R.id.login);
+        Button reg=(Button) findViewById(R.id.reg);
+        TextView t=(TextView) findViewById(R.id.attempts);
+        final int[] n = {3};
+        b.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                Editable e=email.getText();
+                Editable p=pass.getText();
+                if(!String.valueOf(p).equals(po))
+                {
+                    n[0]--;
+                    if(n[0]==0)
+                    {
+                        b.setVisibility(View.GONE);
+                    }
+                    t.setText(String.valueOf(n[0])+" More attempts left...");
+                    t.setVisibility(View.VISIBLE);
+                }
+
+                else
+                {
+                    Intent intent=new Intent(MainActivity.this,SecondActivity.class);
+                    startActivity(intent);
+
+                }
+
+            }
+        });
+        reg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent regent=new Intent(MainActivity.this, RegisterActivity.class);
+                startActivity(regent);
+            }
+        });
+
+
+    }
+
+}
+############################################################
+activity main.xml
+############################################################
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <EditText
+        android:id="@+id/email"
+        android:layout_width="351dp"
+        android:layout_height="44dp"
+        android:background="@drawable/edit_text_background_1"
+        android:ems="10"
+        android:hint="E-mail ID"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:inputType="textEmailAddress"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.427"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.289" />
+
+    <EditText
+        android:id="@+id/pass"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:layout_width="351dp"
+        android:layout_height="44dp"
+        android:background="@drawable/edit_text_background_1"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:padding="10dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.388"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/email"
+        app:layout_constraintVertical_bias="0.029" />
+
+    <TextView
+        android:id="@+id/Label"
+        android:layout_width="133dp"
+        android:layout_height="75dp"
+        android:text="Login"
+        android:textSize="48sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.042" />
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="351dp"
+        android:layout_height="44dp"
+        android:text="Login"
+        android:visibility="visible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.371"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/pass"
+        app:layout_constraintVertical_bias="0.038" />
+
+    <TextView
+        android:id="@+id/attempts"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="3 More Attempts"
+        android:textSize="20dp"
+        android:textColor="@color/black"
+        android:visibility="invisible"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.436"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/login"
+        app:layout_constraintVertical_bias="0.073" />
+
+    <Button
+        android:id="@+id/reg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        app:layout_constraintBottom_toTopOf="@+id/email"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.901"
+        app:layout_constraintStart_toEndOf="@+id/Label"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.026" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
+#############################################################
+second Activity
+#############################################################
+package com.avinash.register;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.os.Bundle;
+
+public class SecondActivity extends AppCompatActivity {
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_second);
+    }
+}
+#############################################################
+acitivitysecond.xml
+#############################################################
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".SecondActivity">
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Welcome User..."
+        android:textSize="34sp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>
+##############################################################
+RegisterActivity
+##############################################################
+package com.eswar.register;
+
+import androidx.appcompat.app.AppCompatActivity;
+
+import android.content.Intent;
+import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.Toast;
+
+public class RegisterActivity extends AppCompatActivity {
+
+    EditText email,p1,p2;
+    Button reg,log;
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_register);
+
+        email=(EditText) findViewById(R.id.email);
+        p1=(EditText) findViewById(R.id.p1);
+        p2=(EditText) findViewById(R.id.p2);
+        reg=(Button) findViewById(R.id.register);
+        log=(Button) findViewById(R.id.rlogin);
+        reg.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                String pass1,pass2;
+                pass1=String.valueOf(p1.getText());
+                pass2=String.valueOf(p2.getText());
+
+                if(pass1.equals(pass2))
+                {
+                    Intent login=new Intent(RegisterActivity.this,SecondActivity.class);
+                    System.out.println("Matched");
+                    startActivity(login);
+                }
+                else
+                {
+                    Toast.makeText(getApplicationContext(),"Password Mismatch...",Toast.LENGTH_LONG).show();
+                    System.out.println("Not Matched");
+                }
+            }
+        });
+
+        log.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent login=new Intent(RegisterActivity.this,MainActivity.class);
+                System.out.println("Login Page|RegisterActivity");
+                startActivity(login);
+            }
+        });
+    }
+}
+####################################################################
+activityregister.xml
+####################################################################
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".RegisterActivity">
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Register"
+        android:textAlignment="center"
+        android:textSize="40dp"
+        android:textStyle="bold"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.538"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.113" />
+
+    <EditText
+        android:id="@+id/remail"
+        android:layout_width="367dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:textColorHint="@color/black"
+        android:textColor="@color/black"
+        android:hint="Email ID"
+        android:inputType="textPersonName"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.256"
+        android:background="@drawable/edit_text_background_1"
+        android:paddingLeft="5dp"/>
+
+    <EditText
+        android:id="@+id/p1"
+        android:layout_width="367dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:hint="Password"
+        android:inputType="textPassword"
+        android:textColorHint="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/remail"
+        app:layout_constraintVertical_bias="0.017"
+        android:textColor="@color/black"
+        android:background="@drawable/edit_text_background_1"
+        android:paddingLeft="5dp"/>
+
+    <EditText
+        android:id="@+id/p2"
+        android:layout_width="367dp"
+        android:layout_height="47dp"
+        android:ems="10"
+        android:textColorHint="@color/black"
+        android:hint="Re-Enter Password"
+        android:inputType="textPassword"
+        android:textColor="@color/black"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.527"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p1"
+        app:layout_constraintVertical_bias="0.024"
+        android:background="@drawable/edit_text_background_1"
+        android:paddingLeft="5dp"/>
+
+    <Button
+        android:id="@+id/register"
+        android:layout_width="367dp"
+        android:layout_height="45dp"
+        android:text="register"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.498"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/p2"
+        app:layout_constraintVertical_bias="0.061" />
+
+    <Button
+        android:id="@+id/rlogin"
+        android:layout_width="118dp"
+        android:layout_height="42dp"
+        android:text="login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.993"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.008" />
+</androidx.constraintlayout.widget.ConstraintLayout>
